@@ -7,3 +7,4 @@ for x in range(0, my_time):
     time.sleep(2)
 
 print("Time's Up!")
+
