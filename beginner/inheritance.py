@@ -14,14 +14,18 @@ class Product:
         print("Ratings: {}".format(self.ratings))
 
 class ElectronicItem(Product):
+    def __init__(self, name, price, deal_price, ratings, warranty_in_months):
+        super().__init__(name, price, deal_price, ratings) 
+        self.warranty_in_months = warranty_in_months
+
     def set_warranty(self, warranty_in_months):
         self.warranty_in_months = warranty_in_months 
 
     def get_warranty(self):
         return self.warranty_in_months 
     
-    def display_electronice_product_details(self):
-        self.display_product_details() 
+    def display_product_details(self):
+        super().display_product_details() 
         print("Warranty: {} months".format(self.warranty_in_months)) 
  
 class GroceryItem(Product):
@@ -37,10 +41,6 @@ class GroceryItem(Product):
 
 # p = Product("Laptop", 30000, 25000, 4)  
 # p.display_product_details()
-
-# e = ElectronicItem("Smartphone", 20000, 15000, 4.5)
-# e.set_warranty(12) 
-# e.display_electronice_product_details()
 
 # g = GroceryItem("Rice", 1000, 800, 4.2)
 # g.set_expiry_date("19-02-2026")
@@ -66,10 +66,13 @@ class Order:
             total_bill += product.deal_price * quantity 
         print("Total Bill: ₹ {}".format(total_bill)) 
 
-milk = GroceryItem("Milk", 50, 40, 4.0)
-tv = ElectronicItem("TV", 50000, 45000, 4.8)
-order = Order("Prime Delivery", "123, Main Street") 
-order.add_item_to_cart(milk, 2)
-order.add_item_to_cart(tv, 1)
-order.display_order_details()
-order.display_total_bill()
+# milk = GroceryItem("Milk", 50, 40, 4.0)
+# tv = ElectronicItem("TV", 50000, 45000, 4.8)
+# order = Order("Prime Delivery", "123, Main Street") 
+# order.add_item_to_cart(milk, 2)
+# order.add_item_to_cart(tv, 1)
+# order.display_order_details()
+# order.display_total_bill()
+
+e = ElectronicItem("Smartphone", 20000, 15000, 4.5, 24)
+e.display_product_details()
