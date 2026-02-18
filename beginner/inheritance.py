@@ -35,13 +35,41 @@ class GroceryItem(Product):
         self.display_product_details() 
         print("Expiry Date: {}".format(self.expiry_date))
 
-p = Product("Laptop", 30000, 25000, 4)  
-p.display_product_details()
+# p = Product("Laptop", 30000, 25000, 4)  
+# p.display_product_details()
 
-e = ElectronicItem("Smartphone", 20000, 15000, 4.5)
-e.set_warranty(12) 
-e.display_electronice_product_details()
+# e = ElectronicItem("Smartphone", 20000, 15000, 4.5)
+# e.set_warranty(12) 
+# e.display_electronice_product_details()
 
-g = GroceryItem("Rice", 1000, 800, 4.2)
-g.set_expiry_date("19-02-2026")
-g.grocery_product_details()
+# g = GroceryItem("Rice", 1000, 800, 4.2)
+# g.set_expiry_date("19-02-2026")
+# g.grocery_product_details()
+
+class Order:
+    def __init__(self, delivery_speed, delivery_address):
+        self.items_in_cart = []
+        self.delivery_speed = delivery_speed
+        self.delivery_address = delivery_address 
+
+    def add_item_to_cart(self, product, quantity):
+        self.items_in_cart.append((product, quantity)) 
+
+    def display_order_details(self):
+        for product, quantity in self.items_in_cart:
+            product.display_product_details()
+            print("Quantity: {}".format(quantity))
+
+    def display_total_bill(self):
+        total_bill = 0 
+        for product, quantity in self.items_in_cart:
+            total_bill += product.deal_price * quantity 
+        print("Total Bill: ₹ {}".format(total_bill)) 
+
+milk = GroceryItem("Milk", 50, 40, 4.0)
+tv = ElectronicItem("TV", 50000, 45000, 4.8)
+order = Order("Prime Delivery", "123, Main Street") 
+order.add_item_to_cart(milk, 2)
+order.add_item_to_cart(tv, 1)
+order.display_order_details()
+order.display_total_bill()
