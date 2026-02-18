@@ -13,5 +13,17 @@ class Product:
         print("You Save: ₹ {}".format(self.you_save))
         print("Ratings: {}".format(self.ratings))
 
+class ElectronicItem(Product):
+    pass
+ 
+class GroceryItem(Product):
+    pass
+
 p = Product("Laptop", 30000, 25000, 4)  
 p.display_product_details()
+
+e = ElectronicItem("Smartphone", 20000, 15000, 4.5)
+e.display_product_details()
+
+g = GroceryItem("Rice", 1000, 800, 4.2)
+g.display_product_details()
