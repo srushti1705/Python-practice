@@ -13,6 +13,11 @@ class Cart:
         cls.flat_discount += amount 
         cls.update_flat_discount(cls.flat_discount) 
 
+    @staticmethod 
+    def greet():
+        print("Have a great shopping experience!") 
+
 print(Cart.flat_discount)
 Cart.increase_flat_discount(50) 
 print(Cart.flat_discount)
+Cart.greet()
