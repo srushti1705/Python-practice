@@ -29,24 +29,19 @@ class ElectronicItem(Product):
         print("Warranty: {} months".format(self.warranty_in_months)) 
  
 class GroceryItem(Product):
-    def set_expiry_date(self, expiry_date):
+    def __init__(self, name, price, deal_price, ratings, expiry_date):
+        super().__init__(name, price, deal_price, ratings)
         self.expiry_date = expiry_date
 
-    def get_expiry_date(self):
-        return self.expiry_date 
-    
-    def grocery_product_details(self):
-        self.display_product_details() 
+    def display_product_details(self):
+        super().display_product_details() 
         print("Expiry Date: {}".format(self.expiry_date))
 
-# p = Product("Laptop", 30000, 25000, 4)  
-# p.display_product_details()
-
-# g = GroceryItem("Rice", 1000, 800, 4.2)
-# g.set_expiry_date("19-02-2026")
-# g.grocery_product_details()
-
 class Order:
+    delivery_charges = {
+        "prime_membership": 0,
+        "standard_delivery": 50,
+    }
     def __init__(self, delivery_speed, delivery_address):
         self.items_in_cart = []
         self.delivery_speed = delivery_speed
@@ -56,23 +51,33 @@ class Order:
         self.items_in_cart.append((product, quantity)) 
 
     def display_order_details(self):
+        print("------Product Details------")
         for product, quantity in self.items_in_cart:
             product.display_product_details()
             print("Quantity: {}".format(quantity))
+            print("---------------------------")
+        print("Delivery Speed: {}".format(self.delivery_speed))
+        print("Delivery Address: {}".format(self.delivery_address))
+        print("Delivery Charges: ₹ {}".format(self.get_delivery_charges(self.delivery_speed)))
+        print("Total Bill: ₹ {}".format(self.display_total_bill())) 
 
     def display_total_bill(self):
         total_bill = 0 
         for product, quantity in self.items_in_cart:
-            total_bill += product.deal_price * quantity 
-        print("Total Bill: ₹ {}".format(total_bill)) 
+            total_bill += product.deal_price * quantity + self.get_delivery_charges(self.delivery_speed)
+        return total_bill
 
-# milk = GroceryItem("Milk", 50, 40, 4.0)
-# tv = ElectronicItem("TV", 50000, 45000, 4.8)
-# order = Order("Prime Delivery", "123, Main Street") 
-# order.add_item_to_cart(milk, 2)
-# order.add_item_to_cart(tv, 1)
-# order.display_order_details()
-# order.display_total_bill()
+    @classmethod 
+    def get_delivery_charges(cls, delivery_speed):
+        return cls.delivery_charges.get(delivery_speed, 0)
 
+tv = ElectronicItem("TV", 50000, 45000, 4.8, 24)
 e = ElectronicItem("Smartphone", 20000, 15000, 4.5, 24)
-e.display_product_details()
+
+milk = GroceryItem("Milk", 50, 40, 4.0, "15-08-2024")
+g = GroceryItem("Rice", 1000, 800, 4.2, "31-12-2025")
+
+order = Order("Prime Delivery", "123, Main Street") 
+order.add_item_to_cart(milk, 2)
+order.add_item_to_cart(tv, 1)
+order.display_order_details()
